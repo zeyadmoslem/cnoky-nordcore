@@ -1,0 +1,1 @@
+https://github.com/zeyadmoslem/cnoky-nordcore/blob/main/conkyrc2core
