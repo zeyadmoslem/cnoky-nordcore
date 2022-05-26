@@ -110,7 +110,7 @@ ${color1}${goto 202}${voffset 25}Battery
 #----------------------------------------------------------------------------------------------------------------------------------------
 ${font caviar dreams:size=8}${goto 180}${voffset 25}Uptime: ${uptime_short}
 ${execpi 300 curl -s https://wttr.in/Frankfurt.png?format=4 > weather.png}
-${image ./weather.png -n -p 40,265 -s 245x15}${font}
+${image weather.png -n -p 40,265 -s 245x15}${font}
 
 
 
