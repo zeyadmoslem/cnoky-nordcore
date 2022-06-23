@@ -67,19 +67,19 @@ conky.config = {
 -- network templates
     if_up_strictness = 'address',
 
-    template0 = [[${color1}\1: $color$alignr${addr \1}
-${color1}Current: $color${alignr}${execi 10 test -e /sys/class/net/\1 && /sbin/iwconfig \1 | awk '/Bit Rate=/ { sub(/Rate=/,"", $2); print $2 }'} Mbits/sec]],
+    template0 = [[
+${color1}Current Speed: $color${alignr}${execi 10 test -e /sys/class/net/wlp0s20f3 && /sbin/iwconfig wlp0s20f3 | awk '/Bit Rate=/ { sub(/Rate=/,"", $2); print $2 }'} Mbits/sec]],
 
     template1 = [[
 ${color1}\1: $color$alignr${addr \1}\n]],
 
-    template2 = [[${color1}Down: $color${downspeed \1} k/s ${alignr}${color1}Up:$color ${upspeed \1} k/s
-${downspeedgraph \1 30,120 000000 88c0d0} ${alignr}${upspeedgraph \1 30,120 000000 88c0d0}$color
-${color1}Total:$color ${totaldown \1} ${alignr}${color1}\1          ${alignr}${color1}Total:$color ${totalup \1}]],
+    template2 = [[${color1}Down: $color${downspeed wlp0s20f3} k/s ${alignr}${color1}Up:$color ${upspeed wlp0s20f3} k/s
+${downspeedgraph wlp0s20f3 30,120 000000 88c0d0} ${alignr}${upspeedgraph wlp0s20f3 30,120 000000 88c0d0}$color
+${color1}Total:$color ${totaldown wlp0s20f3} ${alignr}${color1}\1          ${alignr}${color1}Total:$color ${totalup wlp0s20f3}]],
 
    template4 = 'ens33',
    template5 = 'eth1',
-   template6 = 'wlan0',
+   template6 = 'wlp0s20f3',
    template7 = 'wlan1',
 };
 
@@ -109,8 +109,8 @@ ${color1}${goto 202}${voffset 25}Battery
 #                       Weather
 #----------------------------------------------------------------------------------------------------------------------------------------
 ${font caviar dreams:size=8}${goto 180}${voffset 25}Uptime: ${uptime_short}
-${execpi 300 curl -s https://wttr.in/Frankfurt.png?format=4 > weather.png}
-${image weather.png -n -p 40,265 -s 245x15}${font}
+${execpi 300 curl -s https://wttr.in/Frankfurt.png?format=4 > /home/moslem/.conky/nordcore/weather.png}
+${image /home/moslem/.conky/nordcore/weather.png -n -p 40,265 -s 245x15}${font}
 
 
 
@@ -131,6 +131,7 @@ ${goto 22}${voffset 11}${cpu cpu6}% ${color1}${goto 12}${voffset 33}CPU7$color${
 #                       Network
 #----------------------------------------------------------------------------------------------------------------------------------------
 ${color1}${voffset 2}${hr 1}
+${if_up ${template7}}${template0 ${template7}}${else}${template0 ${template6}}${endif}
 ${if_up ${template7}}${template2 ${template7}}${else}${if_up ${template6}}${template2 ${template6}}${else}${if_up ${template5}}${template2 ${template5}}${else}${if_up ${template4}}${template2 ${template4}}${else}${template2 no-link}      ${endif}${endif}${endif}${endif}
 #----------------------------------------------------------------------------------------------------------------------------------------
 #                   DISK/RAM/SWAP usage
@@ -163,8 +164,7 @@ ${top name 5}${goto 185}${top pid 3}${goto 230}${top cpu 5}${goto 280}${top mem 
 ${top name 6}${goto 185}${top pid 6}${goto 230}${top cpu 6}${goto 280}${top mem 6}
 ${top name 7}${goto 185}${top pid 7}${goto 230}${top cpu 7}${goto 280}${top mem 7}
 ${top name 8}${goto 185}${top pid 8}${goto 230}${top cpu 8}${goto 280}${top mem 8}
-${top name 9}${goto 185}${top pid 9}${goto 230}${top cpu 9}${goto 280}${top mem 9}
-${top name 10}${goto 185}${top pid 10}${goto 230}${top cpu 10}${goto 280}${top mem 10}
+
 #----------------------------------------------------------------------------------------------------------------------------------------
 #					     Computer info
 #----------------------------------------------------------------------------------------------------------------------------------------
