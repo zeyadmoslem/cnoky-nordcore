@@ -120,9 +120,9 @@ ${image weather.png -n -p 40,265 -s 245x15}${font}
 #                              CPU usage
 #----------------------------------------------------------------------------------------------------------------------------------------
 ${color1}${hr 1}$color
-${color1}${voffset 6}Temp: $color ${if_existing /sys/class/thermal/thermal_zone0/temp}${eval ${acpitemp}}${else} ${endif}°C ${color1}${goto 120}${voffset 0}Processes:$color $processes ${color1}${goto 240}${voffset 0}Running: $color  $running_processes
+${color1}${voffset 6}Temp: $color ${hwmon 4 temp 1}°C ${color1}${goto 120}${voffset 0}Processes:$color $processes ${color1}${goto 240}${voffset 0}Running: $color  $running_processes
 
-${color1}${voffset -12}FREQ:$color ${freq}MHz ${color1}${goto 120}${voffset 0}Load:$color ${loadavg}
+${color1}${voffset -12}FREQ:$color ${freq}MHz ${color1}${goto 120}${voffset 0}Total Usage:$color ${cpu}%
 
 ${goto 22}${voffset 11}${cpu cpu0}% ${color1}${goto 12}${voffset 33}CPU1$color${goto 72}${voffset -32}${cpu cpu1}% ${color1}${goto 62}${voffset 32}CPU2$color${goto 122}${voffset -32}${cpu cpu2}% ${color1}${goto 112}${voffset 32}CPU3$color${goto 172}${voffset -32}${cpu cpu3}% ${color1}${goto 162}${voffset 32}CPU4$color${goto 222}${voffset -32}${cpu cpu4}% ${color1}${goto 212}${voffset 32}CPU5$color${goto 272}${voffset -32}${cpu cpu5}% ${color1}${goto 262}${voffset 32}CPU6$color
 
